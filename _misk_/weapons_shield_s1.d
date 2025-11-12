@@ -34,34 +34,39 @@ instance ITSH_SHIELD(C_Item)
 
 func void equip_shield()
 {
-	if(SCATTY_TEACH_PERM1 == TRUE)
-	{
-		if(SCATTY_TEACH_PERM3 == TRUE)
-		{
-			SHIELD_EQUIP = TRUE;
-			Mdl_ApplyOverlayMds(self,"HUMANS_1HST3SH.MDS");
-		}
-		else if(SCATTY_TEACH_PERM2 == TRUE)
-		{
-			SHIELD_EQUIP = TRUE;
-			Mdl_ApplyOverlayMds(self,"HUMANS_1HST2SH.MDS");
-		}
-		else if(SCATTY_TEACH_PERM1 == TRUE)
-		{
-			SHIELD_EQUIP = TRUE;
-			Mdl_ApplyOverlayMds(self,"HUMANS_1HST1SH.MDS");
-		};
-	}
-	else if(Npc_IsPlayer(self))
-	{
-		AI_UnequipWeapons(hero);
-		PrintScreen("Neumím používat štíty!",-1,-1,FONT_Screen,3);
-	};
+    if (Npc_IsPlayer(self)) {
+        if(self.aivar[AIV_ShieldTactic] > 0) {
+            if(self.aivar[AIV_ShieldTactic] == 3) {
+                self.aivar[AIV_ShieldEquipped] = 1;
+                Mdl_ApplyOverlayMds(self,"HUMANS_1HST3SH.MDS");
+            } else if(self.aivar[AIV_ShieldTactic] == 2) {
+                self.aivar[AIV_ShieldEquipped] = 1;
+                Mdl_ApplyOverlayMds(self,"HUMANS_1HST2SH.MDS");
+            } else {
+                self.aivar[AIV_ShieldEquipped] = 1;
+                Mdl_ApplyOverlayMds(self,"HUMANS_1HST1SH.MDS");
+            };
+        } else {
+            AI_UnequipWeapons(self);
+            PrintScreen("Neumím používat štíty!",-1,-1,FONT_Screen,3);
+        };
+    } else {
+        if (Npc_GetTalentSkill(self, NPC_TALENT_1H) >= 3) {
+            self.aivar[AIV_ShieldEquipped] = 1;
+            Mdl_ApplyOverlayMds(self,"HUMANS_1HST3SH.MDS");
+        } else if (Npc_GetTalentSkill(self, NPC_TALENT_1H) >= 2) {
+            self.aivar[AIV_ShieldEquipped] = 1;
+            Mdl_ApplyOverlayMds(self,"HUMANS_1HST2SH.MDS");
+        } else {
+            self.aivar[AIV_ShieldEquipped] = 1;
+            Mdl_ApplyOverlayMds(self,"HUMANS_1HST1SH.MDS");
+        };
+    };
 };
 
 func void unequip_shield()
 {
-	SHIELD_EQUIP = FALSE;
+	self.aivar[AIV_ShieldEquipped] = 0;
 	Mdl_RemoveOverlayMds(self,"HUMANS_1HST3SH.MDS");
 	Mdl_RemoveOverlayMds(self,"HUMANS_1HST2SH.MDS");
 	Mdl_RemoveOverlayMds(self,"HUMANS_1HST1SH.MDS");

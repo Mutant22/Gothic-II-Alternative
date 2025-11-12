@@ -1,9 +1,5 @@
 
-var int scatty_teach_perm1;
-var int scatty_teach_perm2;
-var int scatty_teach_perm3;
 var int teach_2x2_01; 
-var int shield_equip;
 var int DIA_Bronko_FLEISSIG_FIX; 
 var int Knows_AncientLIXIER;  
 var int Knows_VINELIXIER; 

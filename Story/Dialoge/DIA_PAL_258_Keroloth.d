@@ -227,7 +227,7 @@ instance DIA_KEROLOTH_TEACHER2(C_Info)
 
 func int dia_keroloth_teacher2_condition()
 {
-	if((Keroloth_TeachPlayer == TRUE) && (Keroloths_BeutelLeer == FALSE) && (SCATTY_TEACH_PERM1 == FALSE))
+	if((Keroloth_TeachPlayer == TRUE) && (Keroloths_BeutelLeer == FALSE) && (other.aivar[AIV_ShieldTactic] == 0))
 	{
 		return TRUE;
 	};
@@ -236,10 +236,10 @@ func int dia_keroloth_teacher2_condition()
 func void dia_keroloth_teacher2_info()
 {
 	AI_Output(other,self,"DIA_Babo_Teach_15_00");	//Začněme s tréninkem.
-	if((other.lp >= 5) && (hero.aivar[REAL_TALENT_1H] >= 35))
+	if((other.lp >= 5) && (other.aivar[REAL_TALENT_1H] >= 35))
 	{
 		other.lp = other.lp - 5;
-		SCATTY_TEACH_PERM1 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 1;
 		B_TeachThiefTalent(self,other,NPC_TALENT_SHIELDD);
 		PrintScreen("Naučil ses: Boj se štítem",-1,-1,FONT_Screen,3);
 		AI_Output(self,other,"B_Keroloth_TeachNoMore1_07_00");	//Jsi velice dobrý. Už není nic, co bych tě mohl naučit.

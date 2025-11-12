@@ -786,9 +786,9 @@ instance DIA_CORD_TEACH2(C_Info)
 
 func int dia_cord_teach2_condition()
 {
-	if((Cord_Approved == TRUE) || (hero.guild == GIL_SLD) || (hero.guild == GIL_DJG) || (Cord_RangerHelp_Fight == TRUE))
+	if((Cord_Approved == TRUE) || (other.guild == GIL_SLD) || (other.guild == GIL_DJG) || (Cord_RangerHelp_Fight == TRUE))
 	{
-		if((SCATTY_TEACH_PERM1 == FALSE) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) > 0))
+		if(other.aivar[AIV_ShieldTactic] == 0)
 		{
 			return TRUE;
 		};
@@ -798,11 +798,11 @@ func int dia_cord_teach2_condition()
 func void dia_cord_teach2_info()
 {
 	AI_Output(other,self,"DIA_Cord_Teach_15_00");	//Nauč mě bojovat!
-	if((other.lp >= 5) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 1))
+	if((other.lp >= 5) && (other.aivar[REAL_TALENT_1H] >= 30))
 	{
 		other.lp = other.lp - 5;
 		B_TeachThiefTalent(self,other,NPC_TALENT_SHIELDD);
-		SCATTY_TEACH_PERM1 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 1;
 		PrintScreen("Naučil ses: Boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -825,9 +825,9 @@ instance DIA_CORD_TEACH3(C_Info)
 
 func int dia_cord_teach3_condition()
 {
-	if((Cord_Approved == TRUE) || (hero.guild == GIL_SLD) || (hero.guild == GIL_DJG) || (Cord_RangerHelp_Fight == TRUE))
+	if((Cord_Approved == TRUE) || (other.guild == GIL_SLD) || (other.guild == GIL_DJG) || (Cord_RangerHelp_Fight == TRUE))
 	{
-		if((SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == FALSE) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) > 0))
+		if(other.aivar[AIV_ShieldTactic] == 1)
 		{
 			return TRUE;
 		};
@@ -837,10 +837,10 @@ func int dia_cord_teach3_condition()
 func void dia_cord_teach3_info()
 {
 	AI_Output(other,self,"DIA_Cord_Teach_15_00");	//Nauč mě bojovat!
-	if((other.lp >= 10) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 2))
+	if((other.lp >= 10) && (other.aivar[REAL_TALENT_1H] >= 60))
 	{
 		other.lp = other.lp - 10;
-		SCATTY_TEACH_PERM2 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 2;
 		PrintScreen("Naučil ses: Pokročilý boj ze štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -863,9 +863,9 @@ instance DIA_CORD_TEACH4(C_Info)
 
 func int dia_cord_teach4_condition()
 {
-	if((Cord_Approved == TRUE) || (hero.guild == GIL_SLD) || (hero.guild == GIL_DJG) || (Cord_RangerHelp_Fight == TRUE))
+	if((Cord_Approved == TRUE) || (other.guild == GIL_SLD) || (other.guild == GIL_DJG) || (Cord_RangerHelp_Fight == TRUE))
 	{
-		if((SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == TRUE) && (SCATTY_TEACH_PERM3 == FALSE) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) > 0))
+		if(other.aivar[AIV_ShieldTactic] == 2)
 		{
 			return TRUE;
 		};
@@ -875,10 +875,10 @@ func int dia_cord_teach4_condition()
 func void dia_cord_teach4_info()
 {
 	AI_Output(other,self,"DIA_Cord_Teach_15_00");	//Nauč mě bojovat!
-	if((other.lp >= 15) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 3))
+	if((other.lp >= 15) && (other.aivar[REAL_TALENT_1H] >= 90))
 	{
 		other.lp = other.lp - 15;
-		SCATTY_TEACH_PERM3 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 3;
 		PrintScreen("Naučil ses: Mistrovský boj ze štítem",-1,-1,FONT_Screen,3);
 	}
 	else

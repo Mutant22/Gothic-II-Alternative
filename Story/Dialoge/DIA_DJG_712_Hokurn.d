@@ -423,7 +423,7 @@ instance DIA_HOKURN_TEACH2(C_Info)
 
 func int dia_hokurn_teach2_condition()
 {
-	if((Hokurn_TeachPlayer == TRUE) && (SCATTY_TEACH_PERM1 == FALSE))
+	if((Hokurn_TeachPlayer == TRUE) && (other.aivar[AIV_ShieldTactic] == 0))
 	{
 		return TRUE;
 	};
@@ -436,11 +436,11 @@ func void dia_hokurn_teach2_info()
 	{
 		AI_Output(self,other,"DIA_Hokurn_Teach_01_01");	//Nejdřív mi přines něco k pití!
 	}
-	else if((other.lp >= 5) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 1))
+	else if((other.lp >= 5) && (other.aivar[REAL_TALENT_1H] >= 30))
 	{
 		other.lp = other.lp - 5;
 		B_TeachThiefTalent(self,other,NPC_TALENT_SHIELDD);
-		SCATTY_TEACH_PERM1 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 1;
 		PrintScreen("Naučil ses: Boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -463,7 +463,7 @@ instance DIA_HOKURN_TEACH3(C_Info)
 
 func int dia_hokurn_teach3_condition()
 {
-	if((Hokurn_TeachPlayer == TRUE) && (SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == FALSE))
+	if((Hokurn_TeachPlayer == TRUE) && (other.aivar[AIV_ShieldTactic] == 1))
 	{
 		return TRUE;
 	};
@@ -476,11 +476,10 @@ func void dia_hokurn_teach3_info()
 	{
 		AI_Output(self,other,"DIA_Hokurn_Teach_01_01");	//Nejdřív mi přines něco k pití!
 	}
-	else if((other.lp >= 10) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 2))
+	else if((other.lp >= 10) && (other.aivar[REAL_TALENT_1H] >= 60))
 	{
 		other.lp = other.lp - 10;
-		SCATTY_TEACH_PERM2 = TRUE;
-		AI_UnequipWeapons(hero);
+		other.aivar[AIV_ShieldTactic] = 2;
 		PrintScreen("Naučil ses: Pokročilý boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -503,7 +502,7 @@ instance DIA_HOKURN_TEACH4(C_Info)
 
 func int dia_hokurn_teach4_condition()
 {
-	if((Hokurn_TeachPlayer == TRUE) && (SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == TRUE) && (SCATTY_TEACH_PERM3 == FALSE))
+	if((Hokurn_TeachPlayer == TRUE) && (other.aivar[AIV_ShieldTactic] == 2))
 	{
 		return TRUE;
 	};
@@ -511,16 +510,15 @@ func int dia_hokurn_teach4_condition()
 
 func void dia_hokurn_teach4_info()
 {
-	AI_Output(other,self,"DIA_Keroloth_Teacher_15_00");	//Chci se učit! 
+	AI_Output(other,self,"DIA_Keroloth_Teacher_15_00");	//Chci se učit!
 	if(HokurnLastDrink < Wld_GetDay())
 	{
 		AI_Output(self,other,"DIA_Hokurn_Teach_01_01");	//Nejdřív mi přines něco k pití!
 	}
-	else if((other.lp >= 15) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 2))  
+	else if((other.lp >= 15) && (other.aivar[REAL_TALENT_1H] >= 90))
 	{
 		other.lp = other.lp - 15;
-		SCATTY_TEACH_PERM3 = TRUE;
-		AI_UnequipWeapons(hero);
+		other.aivar[AIV_ShieldTactic] = 3;
 		PrintScreen("Naučil ses: Mistrovsky boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else

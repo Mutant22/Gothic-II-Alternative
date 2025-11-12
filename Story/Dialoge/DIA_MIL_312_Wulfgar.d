@@ -330,7 +330,7 @@ instance DIA_WULFGAR_TEACH3(C_Info)
 
 func int dia_wulfgar_teach3_condition()
 {
-	if(((Wulfgar_Teach1H == TRUE) && (SCATTY_TEACH_PERM1 == FALSE)) || ((other.guild == GIL_MIL) && (SCATTY_TEACH_PERM1 == FALSE)))
+	if((other.aivar[AIV_ShieldTactic] == 0) && ((Wulfgar_Teach1H == TRUE) || (other.guild == GIL_MIL) || (other.guild == GIL_PAL)))
 	{
 		return TRUE;
 	};
@@ -343,11 +343,11 @@ func void dia_wulfgar_teach3_info()
 	{
 		AI_Output(self,other,"DIA_Wulfgar_Add_04_00");	//Žoldáky necvičím!
 	}
-	else if((other.lp >= 5) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 1))
+	else if((other.lp >= 5) && (other.aivar[REAL_TALENT_1H] >= 30))
 	{
 		other.lp = other.lp - 5;
 		B_TeachThiefTalent(self,other,NPC_TALENT_SHIELDD);
-		SCATTY_TEACH_PERM1 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 1;
 		PrintScreen("Naučil ses: Boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -370,7 +370,7 @@ instance DIA_WULFGAR_TEACH4(C_Info)
 
 func int dia_wulfgar_teach4_condition()
 {
-	if(((Wulfgar_Teach1H == TRUE) && (SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == FALSE)) || ((other.guild == GIL_MIL) && (SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == FALSE)))
+	if((other.aivar[AIV_ShieldTactic] == 1) && ((Wulfgar_Teach1H == TRUE) || (other.guild == GIL_MIL) || (other.guild == GIL_PAL)))
 	{
 		return TRUE;
 	};
@@ -383,10 +383,10 @@ func void dia_wulfgar_teach4_info()
 	{
 		AI_Output(self,other,"DIA_Wulfgar_Add_04_00");	//Žoldáky necvičím!
 	}
-	else if((other.lp >= 10) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 2))
+	else if((other.lp >= 10) && (other.aivar[REAL_TALENT_1H] >= 60))
 	{
 		other.lp = other.lp - 10;
-		SCATTY_TEACH_PERM2 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 2;
 		PrintScreen("Naučil ses: Pokročilý boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else

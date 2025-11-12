@@ -701,21 +701,11 @@ instance ItRi_Addon_MorgansRing_Mission(C_Item)
 func void Equip_MorgansRing()
 {
 	B_AddFightSkill(self,NPC_TALENT_1H,5);
-	if((SHIELD_EQUIP == TRUE) && (SCATTY_TEACH_PERM2 == FALSE))
-	{
-		Mdl_RemoveOverlayMds(hero,"HUMANS_1HST1SH.MDS");
-		Mdl_ApplyOverlayMds(hero,"HUMANS_1HST1SH.MDS");
-	};
 };
 
 func void UnEquip_MorgansRing()
 {
 	B_AddFightSkill(self,NPC_TALENT_1H,-5);
-	if((SHIELD_EQUIP == TRUE) && (SCATTY_TEACH_PERM2 == FALSE))
-	{
-		Mdl_RemoveOverlayMds(hero,"HUMANS_1HST1SH.MDS");
-		Mdl_ApplyOverlayMds(hero,"HUMANS_1HST1SH.MDS");
-	};
 };
 
 

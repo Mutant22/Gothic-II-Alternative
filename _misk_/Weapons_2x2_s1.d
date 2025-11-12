@@ -25,16 +25,16 @@ instance ITWR_TRAKTAT1(C_Item)
 
 func void use_traktat1()
 {
-	if((SCATTY_TEACH_PERM1 == FALSE) && (Npc_GetTalentSkill(hero,NPC_TALENT_1H) >= 1) && (hero.lp >= 5))      //if((Cedric_Teach1H == TRUE) && (SCATTY_TEACH_PERM1 == FALSE)) // ((other.lp >= 5) && (Npc_GetTalentSkill(other,NPC_TALENT_1H) >= 1))
-	{
+	if((hero.aivar[AIV_ShieldTactic] == 0) && (hero.aivar[REAL_TALENT_1H] >= 30) && (hero.lp >= 5)) {
 		hero.lp = hero.lp - 5;
-		SCATTY_TEACH_PERM1 = TRUE;
+		hero.aivar[AIV_ShieldTactic] = 1;
 		B_TeachThiefTalent(other,self,NPC_TALENT_SHIELDD);
 		PrintScreen("Naučil ses: Boj se štítem",-1,-1,FONT_Screen,3);
 		CreateInvItems(hero,itwr_traktat1,1);
-	}
-	else
-	{
+	} else if(hero.aivar[AIV_ShieldTactic] > 0) {
+        PrintScreen("Už to znám!",-1,-1,FONT_Screen,3);
+		CreateInvItems(hero,itwr_traktat1,1);
+    } else {
 		PrintScreen("Nejsem připraven!",-1,-1,FONT_Screen,3);
 		CreateInvItems(hero,itwr_traktat1,1);
 	};
@@ -63,17 +63,15 @@ instance ITWR_TRAKTAT2(C_Item)
 
 func void use_traktat2()
 {
-	if((SCATTY_TEACH_PERM2 == FALSE) && (SCATTY_TEACH_PERM1 == TRUE) && (hero.lp >= 10) && (Npc_GetTalentSkill(hero,NPC_TALENT_1H) >= 2)) //Alternativa: (hero.aivar[REAL_TALENT_1H] >= 60)
-	{
+	if((hero.aivar[AIV_ShieldTactic] == 1) && (hero.aivar[REAL_TALENT_1H] >= 60) && (hero.lp >= 10)) {
 		hero.lp = hero.lp - 10;
-		SCATTY_TEACH_PERM2 = TRUE;
-		AI_UnequipWeapons(hero);
-		B_TeachThiefTalent(other,self,NPC_TALENT_SHIELDD);
+		hero.aivar[AIV_ShieldTactic] = 2;
 		PrintScreen("Naučil ses lépe bojovat se štítem",-1,-1,FONT_Screen,3);
 		CreateInvItems(hero,itwr_traktat2,1);
-	}
-	else
-	{
+	} else if(hero.aivar[AIV_ShieldTactic] > 1) {
+        PrintScreen("Už to znám!",-1,-1,FONT_Screen,3);
+		CreateInvItems(hero,itwr_traktat2,1);
+    } else {
 		PrintScreen("Nejsem připraven!",-1,-1,FONT_Screen,3);
 		CreateInvItems(hero,itwr_traktat2,1);
 	};
@@ -102,17 +100,15 @@ instance ITWR_TRAKTAT3(C_Item)
 
 func void use_traktat3()
 {
-	if((SCATTY_TEACH_PERM3 == FALSE) && (SCATTY_TEACH_PERM2 == TRUE) && (SCATTY_TEACH_PERM1 == TRUE) && (hero.lp >= 15) && (Npc_GetTalentSkill(hero,NPC_TALENT_1H) >= 3)) //Alternativa: (hero.aivar[REAL_TALENT_1H] >= 90)
-	{
+	if((hero.aivar[AIV_ShieldTactic] == 2) && (hero.aivar[REAL_TALENT_1H] >= 90) && (hero.lp >= 15)) {
 		hero.lp = hero.lp - 15;
-		SCATTY_TEACH_PERM3 = TRUE;
-		AI_UnequipWeapons(hero);
-		B_TeachThiefTalent(other,self,NPC_TALENT_SHIELDD);
+		hero.aivar[AIV_ShieldTactic] = 3;
 		PrintScreen("Naučil ses mistrovsky bojovat se štítem",-1,-1,FONT_Screen,3);
 		CreateInvItems(hero,itwr_traktat3,1);
-	}
-	else
-	{
+	} else if(hero.aivar[AIV_ShieldTactic] > 2) {
+        PrintScreen("Už to znám!",-1,-1,FONT_Screen,3);
+		CreateInvItems(hero,itwr_traktat3,1);
+    } else {
 		PrintScreen("Nejsem připraven!",-1,-1,FONT_Screen,3);
 		CreateInvItems(hero,itwr_traktat3,1);
 	};

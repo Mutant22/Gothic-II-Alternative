@@ -260,6 +260,8 @@ const int REAL_TALENT_2H = 85;
 const int REAL_TALENT_BOW = 86;
 const int REAL_TALENT_CROSSBOW = 87;
 const int AIV_SpellLevel = 88;
+const int AIV_ShieldTactic = 89;
+const int AIV_ShieldEquipped = 90;
 var int ABSOLUTIONLEVEL_OldCamp;
 var int ABSOLUTIONLEVEL_City;
 var int ABSOLUTIONLEVEL_Monastery;

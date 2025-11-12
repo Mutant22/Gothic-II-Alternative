@@ -7,27 +7,7 @@ func void startup_global()
 func void init_global()
 {
 	Game_InitGerman();
-	if(SHIELD_EQUIP == TRUE)
-	{
-		if(SCATTY_TEACH_PERM2 == TRUE)
-		{
-			if(SCATTY_TEACH_PERM3 == TRUE)
-			{
-				Mdl_RemoveOverlayMds(hero,"HUMANS_1HST3SH.MDS");
-				Mdl_ApplyOverlayMds(hero,"HUMANS_1HST3SH.MDS");
-			}
-			else if(SCATTY_TEACH_PERM2 == TRUE)
-			{
-				Mdl_RemoveOverlayMds(hero,"HUMANS_1HST2SH.MDS");
-				Mdl_ApplyOverlayMds(hero,"HUMANS_1HST2SH.MDS");
-			}
-			else if(SCATTY_TEACH_PERM1 == TRUE)
-			{
-				Mdl_RemoveOverlayMds(hero,"HUMANS_1HST1SH.MDS");
-				Mdl_ApplyOverlayMds(hero,"HUMANS_1HST1SH.MDS");
-			};
-		};
-	};
+
 	Mdl_RemoveOverlayMds(hero, "HUMANS_WALK.REMASTER.mds");
     Mdl_RemoveOverlayMds(hero, "Humans_Militia.mds");
     Mdl_RemoveOverlayMds(hero, "Humans_Relaxed.mds");
@@ -36,7 +16,7 @@ func void init_global()
 	{
 		Mdl_ApplyOverlayMds(hero,"HUMANS_WALK.REMASTER.mds");
 	};
-	if((Npc_GetTrueGuild(hero) == GIL_MIL) || (Npc_GetTrueGuild(hero) == GIL_PAL))  
+	if((Npc_GetTrueGuild(hero) == GIL_MIL) || (Npc_GetTrueGuild(hero) == GIL_PAL))
 	{
 		Mdl_ApplyOverlayMds(hero,"Humans_Militia.mds");
 	};

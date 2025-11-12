@@ -260,7 +260,7 @@ instance DIA_GIRION_DI_TEACH2(C_Info)
 
 func int dia_girion_di_teach2_condition()
 {
-	if(22992 && (SCATTY_TEACH_PERM1 == FALSE))
+	if(other.aivar[AIV_ShieldTactic] == 0)
 	{
 		return TRUE;
 	};
@@ -269,11 +269,11 @@ func int dia_girion_di_teach2_condition()
 func void dia_girion_di_teach2_info()
 {
 	AI_Output(other,self,"DIA_Cord_Teach_15_00");	//Nauč mě bojovat!
-	if((other.lp >= 5) && (hero.aivar[REAL_TALENT_1H] >= 35))
+	if((other.lp >= 5) && (other.aivar[REAL_TALENT_1H] >= 35))
 	{
 		other.lp = other.lp - 5;
 		B_TeachThiefTalent(self,other,NPC_TALENT_SHIELDD);
-		SCATTY_TEACH_PERM1 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 1;
 		PrintScreen("Naučil ses: Boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -296,7 +296,7 @@ instance DIA_GIRION_DI_TEACH3(C_Info)
 
 func int dia_girion_di_teach3_condition()
 {
-	if(22992 && (SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == FALSE))
+	if(other.aivar[AIV_ShieldTactic] == 1)
 	{
 		return TRUE;
 	};
@@ -305,10 +305,10 @@ func int dia_girion_di_teach3_condition()
 func void dia_girion_di_teach3_info()
 {
 	AI_Output(other,self,"DIA_Cord_Teach_15_00");	//Nauč mě bojovat!
-	if((other.lp >= 10) && (hero.aivar[REAL_TALENT_1H] >= 65))
+	if((other.lp >= 10) && (other.aivar[REAL_TALENT_1H] >= 65))
 	{
 		other.lp = other.lp - 10;
-		SCATTY_TEACH_PERM2 = TRUE;
+		other.aivar[AIV_ShieldTactic] = 2;
 		PrintScreen("Naučil ses: Pokročilý boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
@@ -331,7 +331,7 @@ instance DIA_GIRION_DI_TEACH4(C_Info)
 
 func int dia_girion_di_teach4_condition()
 {
-	if(22992 && (SCATTY_TEACH_PERM1 == TRUE) && (SCATTY_TEACH_PERM2 == TRUE) && (SCATTY_TEACH_PERM3 == FALSE))
+	if(other.aivar[AIV_ShieldTactic] == 2)
 	{
 		return TRUE;
 	};
@@ -340,11 +340,11 @@ func int dia_girion_di_teach4_condition()
 func void dia_girion_di_teach4_info()
 {
 	AI_Output(other,self,"DIA_Cord_Teach_15_00");	//Nauč mě bojovat!
-	if((other.lp >= 15) && (hero.aivar[REAL_TALENT_1H] >= 90))
+	if((other.lp >= 15) && (other.aivar[REAL_TALENT_1H] >= 90))
 	{
 		other.lp = other.lp - 15;
-		SCATTY_TEACH_PERM3 = TRUE;
-		PrintScreen("Naučil ses: Mistrovsky boj se štítem",-1,-1,FONT_Screen,3);
+		other.aivar[AIV_ShieldTactic] = 3;
+		PrintScreen("Naučil ses: Mistrovský boj se štítem",-1,-1,FONT_Screen,3);
 	}
 	else
 	{
